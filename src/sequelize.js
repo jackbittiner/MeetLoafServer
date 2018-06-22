@@ -1,9 +1,11 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-module.exports = function () {
+module.exports = function() {
   const app = this;
-  const connectionString = `postgres://${process.env.PGNAME}:${process.env.PGPASS}@localhost:${process.env.PGPORT}/Meetloaf`
+  const connectionString = `postgres://${process.env.PGNAME}:${
+    process.env.PGPASS
+  }@localhost:${process.env.PGPORT}/Meetloaf`;
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
     logging: false,
@@ -15,7 +17,7 @@ module.exports = function () {
 
   app.set('sequelizeClient', sequelize);
 
-  app.setup = function (...args) {
+  app.setup = function(...args) {
     const result = oldSetup.apply(this, args);
 
     // Set up data relationships

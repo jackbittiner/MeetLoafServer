@@ -5,17 +5,9 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function(app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const meeting = sequelizeClient.define(
-    'meeting',
+  const sprint = sequelizeClient.define(
+    'sprint',
     {
-      NumberOfAttendees: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
-      Length: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
       updatedAt: {
         type: DataTypes.DATE,
         allowNull: false
@@ -24,10 +16,6 @@ module.exports = function(app) {
         type: DataTypes.DATE,
         allowNull: false
       }
-      // sprintId: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false
-      // }
     },
     {
       hooks: {
@@ -38,12 +26,12 @@ module.exports = function(app) {
     }
   );
 
-  meeting.associate = function(models) {
-    meeting.belongsTo(models.sprint);
+  sprint.associate = function(models) {
+    sprint.hasMany(models.meeting);
     // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  return meeting;
+  return sprint;
 };
